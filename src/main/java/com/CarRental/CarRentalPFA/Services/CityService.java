@@ -8,5 +8,5 @@ public interface CityService {
     List<City> getAllCities();
     City addCity(City city);
     City updateCity(City city);
-    City deleteCity(City city);
+    City deleteCity(Long cityId);
 }

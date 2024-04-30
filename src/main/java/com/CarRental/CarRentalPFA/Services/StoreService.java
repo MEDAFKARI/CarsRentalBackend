@@ -5,7 +5,8 @@ import java.util.List;
 
 public interface StoreService {
     List<Store> getAllStores();
-    List<Store> getAllStoresByCity();
+    List<Store> getAllStoresByCity(Long cityId);
+
     Store addStore(Store store);
     Store updateStore(Store store);
     Store deleteStore(Long storeId);

@@ -9,5 +9,5 @@ public interface HistoriqueService {
     List<LocationHistorique> getUserHistorique(Long userId);
     LocationHistorique addHistorique(LocationHistorique historique);
     LocationHistorique updateHistorique(LocationHistorique historique);
-    LocationHistorique deleteHistorique(LocationHistorique historique);
+    LocationHistorique deleteHistorique(Long historiqueId);
 }
