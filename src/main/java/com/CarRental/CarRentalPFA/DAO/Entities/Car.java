@@ -23,6 +23,7 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String carModel;
+    private Double price;
     @ManyToOne
     private CarBrand brand;
     @Enumerated(EnumType.STRING)
