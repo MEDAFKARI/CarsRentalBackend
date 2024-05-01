@@ -1,5 +1,6 @@
 package com.CarRental.CarRentalPFA.DAO.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,5 +18,6 @@ public class City {
     private Long Id;
     private String cityName;
     @OneToMany(mappedBy = "city")
+    @JsonIgnore
     private List<Store> stores;
 }

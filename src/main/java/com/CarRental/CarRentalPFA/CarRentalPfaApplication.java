@@ -37,7 +37,7 @@ public class CarRentalPfaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		User user1 = new User(null,"med","med@test","1234", Role.USER,null,null,null);
+		User user1 = new User("med","med@test","1234", Role.USER,null,null,null);
 		userRepository.save(user1);
 		Store store1 = new Store(null,"Testing",null,null,null,user1,null);
 		storeService.addStore(store1);

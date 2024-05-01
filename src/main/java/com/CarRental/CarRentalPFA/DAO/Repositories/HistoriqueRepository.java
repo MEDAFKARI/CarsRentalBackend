@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface HistoriqueRepository extends JpaRepository<LocationHistorique, Long> {
-    List<LocationHistorique> findAllByUserId(Long userId);
+    List<LocationHistorique> findAllByUserUsername(String userId);
 }

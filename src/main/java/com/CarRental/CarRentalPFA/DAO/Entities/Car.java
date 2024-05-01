@@ -3,6 +3,7 @@ package com.CarRental.CarRentalPFA.DAO.Entities;
 import com.CarRental.CarRentalPFA.DAO.Enum.CarBody;
 import com.CarRental.CarRentalPFA.DAO.Enum.Transmission;
 import com.CarRental.CarRentalPFA.DAO.Enum.Fuel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jdk.jfr.DataAmount;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,7 @@ public class Car {
     private Fuel fuel;
     private List<String> carImages;
     @ManyToOne
+    @JsonIgnore
     private Store store;
     @OneToMany(mappedBy = "car")
     private List<LocationHistorique> historiques;

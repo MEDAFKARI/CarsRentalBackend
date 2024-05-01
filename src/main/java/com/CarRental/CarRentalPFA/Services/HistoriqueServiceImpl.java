@@ -12,9 +12,9 @@ public class HistoriqueServiceImpl implements HistoriqueService{
     @Autowired
     HistoriqueRepository historiqueRepository;
     @Override
-    public List<LocationHistorique> getUserHistorique(Long userId) {
+    public List<LocationHistorique> getUserHistorique(String username) {
 
-        return historiqueRepository.findAllByUserId(userId);
+        return historiqueRepository.findAllByUserUsername(username);
     }
 
     @Override
