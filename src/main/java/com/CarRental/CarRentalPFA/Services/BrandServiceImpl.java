@@ -1,10 +1,13 @@
 package com.CarRental.CarRentalPFA.Services;
 import com.CarRental.CarRentalPFA.DAO.Entities.CarBrand;
 import com.CarRental.CarRentalPFA.DAO.Repositories.BrandRepository;
+import com.CarRental.CarRentalPFA.DTO.BrandDTO;
+import com.CarRental.CarRentalPFA.Mappers.BrandMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BrandServiceImpl implements BrandService{
@@ -12,15 +15,22 @@ public class BrandServiceImpl implements BrandService{
     @Autowired
     private BrandRepository brandRepository;
 
+    @Autowired
+    BrandMapper brandMapper;
+
     @Override
-    public List<CarBrand> getAllBrands() {
-        return brandRepository.findAll();
+    public List<BrandDTO> getAllBrands() {
+
+        return brandRepository.findAll().stream()
+                .map(brand -> brandMapper.convertToDTO(brand))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public CarBrand addBrand(CarBrand brand) {
-
-        return brandRepository.save(brand);
+    public BrandDTO addBrand(BrandDTO brand) {
+        BrandDTO brandDTO = brandMapper
+                .convertToDTO(brandRepository.save(brandMapper.convertToBrand(brand)));
+        return brandDTO;
     }
 
     @Override

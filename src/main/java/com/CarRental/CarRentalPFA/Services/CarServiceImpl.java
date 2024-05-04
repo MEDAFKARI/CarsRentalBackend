@@ -2,21 +2,27 @@ package com.CarRental.CarRentalPFA.Services;
 
 import com.CarRental.CarRentalPFA.DAO.Entities.Car;
 import com.CarRental.CarRentalPFA.DAO.Repositories.CarRepository;
+import com.CarRental.CarRentalPFA.DTO.CarDTO;
+import com.CarRental.CarRentalPFA.Mappers.CarMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CarServiceImpl implements CarService{
 
     @Autowired
     CarRepository carRepository;
+    @Autowired
+    CarMapper carMapper;
 
     @Override
-    public List<Car> getAllCars() {
+    public List<CarDTO> getAllCars() {
 
-        return carRepository.findAll();
+        return carRepository.findAll().stream()
+                .map(car -> carMapper.convertToCarDTO(car)).collect(Collectors.toList());
     }
 
     public List<Car> getAllCarsByModel(String ModelName) {
@@ -37,9 +43,13 @@ public class CarServiceImpl implements CarService{
     }
 
     @Override
-    public Car addCar(Car car) {
+    public CarDTO addCar(CarDTO car) {
+        CarDTO carDTO = carMapper
+                .convertToCarDTO(
+                        carRepository.save(
+                                carMapper.convertToCar(car)));
 
-        return carRepository.save(car);
+        return carDTO;
     }
 
     @Override

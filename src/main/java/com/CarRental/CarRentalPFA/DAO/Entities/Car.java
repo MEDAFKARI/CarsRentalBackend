@@ -29,7 +29,7 @@ public class Car {
     private CarBrand brand;
     @Enumerated(EnumType.STRING)
     private CarBody body;
-    private Integer Doors;
+    private Integer doors;
     @Enumerated(EnumType.STRING)
     private Transmission transmission;
     @Enumerated(EnumType.STRING)

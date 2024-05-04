@@ -2,10 +2,13 @@ package com.CarRental.CarRentalPFA.Services;
 
 import com.CarRental.CarRentalPFA.DAO.Entities.Store;
 import com.CarRental.CarRentalPFA.DAO.Repositories.StoreRepository;
+import com.CarRental.CarRentalPFA.DTO.StoreDTO;
+import com.CarRental.CarRentalPFA.Mappers.StoreMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StoreServiceImpl implements StoreService{
@@ -13,11 +16,14 @@ public class StoreServiceImpl implements StoreService{
     @Autowired
     StoreRepository storeRepository;
 
+    @Autowired
+    StoreMapper storeMapper;
+
 
     @Override
-    public List<Store> getAllStores() {
-
-        return storeRepository.findAll();
+    public List<StoreDTO> getAllStores() {
+        List<StoreDTO> storeDTO = storeRepository.findAll().stream().map(store -> storeMapper.convertStoreToStoreDTO(store)).collect(Collectors.toList());
+        return storeDTO;
     }
 
     @Override
@@ -27,9 +33,13 @@ public class StoreServiceImpl implements StoreService{
     }
 
     @Override
-    public Store addStore(Store store) {
-
-        return storeRepository.save(store);
+    public StoreDTO addStore(StoreDTO store) {
+        System.out.println(store);
+        StoreDTO storeDTO = storeMapper
+                .convertStoreToStoreDTO(
+                        storeRepository
+                                .save(storeMapper.convertToStore(store)));
+        return storeDTO;
     }
 
     @Override

@@ -1,13 +1,14 @@
 package com.CarRental.CarRentalPFA.Services;
 import com.CarRental.CarRentalPFA.DAO.Entities.Store;
+import com.CarRental.CarRentalPFA.DTO.StoreDTO;
 
 import java.util.List;
 
 public interface StoreService {
-    List<Store> getAllStores();
+    List<StoreDTO> getAllStores();
     List<Store> getAllStoresByCity(Long cityId);
 
-    Store addStore(Store store);
+    StoreDTO addStore(StoreDTO store);
     Store updateStore(Store store);
     Store deleteStore(Long storeId);
 }

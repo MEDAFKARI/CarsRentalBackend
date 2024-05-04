@@ -52,7 +52,7 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         mvcMatcherBuilder.pattern("/api/v1/auth/signup"),
                                         mvcMatcherBuilder.pattern("/api/v1/auth/signin"),
-                                        mvcMatcherBuilder.pattern("/api/v1/**")
+                                        mvcMatcherBuilder.pattern("/**")
                                 ).permitAll()
                                 .anyRequest()
                                 .authenticated());
