@@ -20,10 +20,15 @@ public class CityController {
     CityService cityService;
 
     @GetMapping("/get")
-    ResponseEntity<?> getAllCities(@RequestParam("search") String kw,
+    ResponseEntity<?> getAllCities(@RequestParam(value = "search", defaultValue = "") String kw,
                                    @RequestParam(value = "size", defaultValue = "5") Integer size,
                                    @RequestParam(value = "page", defaultValue = "0") Integer page){
         return new ResponseEntity<>(cityService.getAllCities(kw,size,page), HttpStatus.OK);
+    }
+
+    @GetMapping("/get/{id}")
+    ResponseEntity<?> getCity(@PathVariable("id") Long cityId){
+        return new ResponseEntity<>(cityService.getCity(cityId), HttpStatus.OK);
     }
 
     @PostMapping("/add")
@@ -31,12 +36,13 @@ public class CityController {
         return new ResponseEntity<>(cityService.addCity(city), HttpStatus.OK);
     }
 
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     ResponseEntity<?> updateCity(@PathVariable("id") Long Id, @RequestBody CityDTO city){
+        city.setId(Id);
         return new ResponseEntity<>(cityService.updateCity(city), HttpStatus.OK);
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping ("/delete/{id}")
     ResponseEntity<?> deleteCity(@PathVariable("id") Long Id){
         return new ResponseEntity<>(cityService.deleteCity(Id), HttpStatus.OK);
     }

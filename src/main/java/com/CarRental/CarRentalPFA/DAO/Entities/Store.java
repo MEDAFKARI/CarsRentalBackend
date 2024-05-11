@@ -20,6 +20,7 @@ public class Store {
     @Column(unique = true)
     private String storeName;
     private String StoreNumber;
+    private String storeLogo;
     @ManyToOne
     private City city;
     @OneToMany(mappedBy = "store", fetch = FetchType.EAGER)

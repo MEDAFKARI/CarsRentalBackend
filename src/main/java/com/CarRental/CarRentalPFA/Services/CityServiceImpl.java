@@ -30,6 +30,12 @@ public class CityServiceImpl implements CityService {
         return cities;
     }
 
+    @Override
+    public CityDTO getCity(Long cityId) {
+        City c = cityRepository.findById(cityId).get();
+        return cityMapper.convertCityToDTO(c);
+    }
+
 
     @Override
     public CityDTO addCity(CityDTO city) {
@@ -50,4 +56,6 @@ public class CityServiceImpl implements CityService {
         cityRepository.delete(city);
         return cityMapper.convertCityToDTO(city);
     }
+
+
 }

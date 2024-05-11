@@ -22,6 +22,12 @@ public class StoreController {
         return new ResponseEntity<>(storeService.getAllStores(kw, size, page), HttpStatus.OK);
     }
 
+
+    @GetMapping("/getByCity/{id}")
+    ResponseEntity<?> getStoreByCity(@PathVariable("id") Long cityId){
+        return new ResponseEntity<>(storeService.getAllStoresByCity(cityId), HttpStatus.OK);
+    }
+
     @GetMapping("/get/{id}")
     ResponseEntity<?> getStore(@PathVariable("id") Long storeId){
         return new ResponseEntity<>(storeService.getStore(storeId), HttpStatus.OK);

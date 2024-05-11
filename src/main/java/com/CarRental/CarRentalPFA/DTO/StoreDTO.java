@@ -23,6 +23,7 @@ import java.util.List;
 public class StoreDTO {
     private Long Id;
     private String storeName;
+    private String storeLogo;
     private CityDTO city;
     private UserDTO owner;
 }

@@ -42,7 +42,7 @@ public class BrandController {
     }
 //    @PreAuthorize("hasAuthority('ADMIN')")
 
-    @PutMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     ResponseEntity<?> deleteBrand(@PathVariable("id") Long brandId){
         return new ResponseEntity<>(brandService.deleteBrand(brandId), HttpStatus.OK);
     }

@@ -11,4 +11,6 @@ public interface CityService {
     CityDTO addCity(CityDTO city);
     CityDTO updateCity(CityDTO city);
     CityDTO deleteCity(Long cityId);
+
+    CityDTO getCity(Long cityId);
 }

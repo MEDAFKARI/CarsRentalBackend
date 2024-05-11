@@ -18,7 +18,7 @@ public class CarController {
 
     @GetMapping("/get")
     ResponseEntity<?> getAllCars(@RequestParam(value = "search", defaultValue = "") String kw,
-                                 @RequestParam(value = "size", defaultValue = "2") Integer size,
+                                 @RequestParam(value = "size", defaultValue = "5") Integer size,
                                  @RequestParam(value = "page", defaultValue = "0") Integer page){
 
         return new ResponseEntity<>(carService.getAllCarsByModel(kw, size, page), HttpStatus.OK);
