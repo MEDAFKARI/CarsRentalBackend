@@ -21,10 +21,6 @@ public class LocationHistorique {
     @ManyToOne
     private Car car;
     @ManyToOne
-    @JsonIgnore
-
-    private Store store;
-    @ManyToOne
     private User user;
     private Date date;
 }

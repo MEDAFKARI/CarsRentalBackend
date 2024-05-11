@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class HistoriqueDTO {
-    private String carModel;
-    private String storeName;
-    private String username;
+    private Long Id;
+    private CarDTO car;
+    private UserDTO user;
 }

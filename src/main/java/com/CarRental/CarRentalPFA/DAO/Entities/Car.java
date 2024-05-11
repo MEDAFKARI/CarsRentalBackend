@@ -5,7 +5,6 @@ import com.CarRental.CarRentalPFA.DAO.Enum.Transmission;
 import com.CarRental.CarRentalPFA.DAO.Enum.Fuel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jdk.jfr.DataAmount;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,9 +31,10 @@ public class Car {
     private Integer doors;
     @Enumerated(EnumType.STRING)
     private Transmission transmission;
+    private Boolean availability;
     @Enumerated(EnumType.STRING)
     private Fuel fuel;
-    private List<String> carImages;
+    private String carImage;
     @ManyToOne
     @JsonIgnore
     private Store store;

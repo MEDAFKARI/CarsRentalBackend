@@ -5,6 +5,8 @@ import com.CarRental.CarRentalPFA.DAO.Repositories.StoreRepository;
 import com.CarRental.CarRentalPFA.DTO.StoreDTO;
 import com.CarRental.CarRentalPFA.Mappers.StoreMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,9 +23,15 @@ public class StoreServiceImpl implements StoreService{
 
 
     @Override
-    public List<StoreDTO> getAllStores() {
-        List<StoreDTO> storeDTO = storeRepository.findAll().stream().map(store -> storeMapper.convertStoreToStoreDTO(store)).collect(Collectors.toList());
+    public Page<StoreDTO> getAllStores(String kw, Integer size, Integer page) {
+        Page<StoreDTO> storeDTO = storeRepository.findByStoreNameContaining(kw, PageRequest.of(page,size))
+                    .map(store -> storeMapper.convertStoreToStoreDTO(store));
         return storeDTO;
+    }
+
+    @Override
+    public StoreDTO getStore(Long Id) {
+        return storeMapper.convertStoreToStoreDTO(storeRepository.findById(Id).get());
     }
 
     @Override
@@ -43,15 +51,16 @@ public class StoreServiceImpl implements StoreService{
     }
 
     @Override
-    public Store updateStore(Store store) {
-
-        return storeRepository.save(store);
+    public StoreDTO updateStore(StoreDTO store) {
+        Store store1 = storeRepository.save(storeMapper.convertToStore(store));
+        StoreDTO storeDTO = storeMapper.convertStoreToStoreDTO(store1);
+        return storeDTO;
     }
 
     @Override
-    public Store deleteStore(Long storeId) {
+    public StoreDTO deleteStore(Long storeId) {
         Store store = storeRepository.findById(storeId).get();
         storeRepository.delete(store);
-        return store;
+        return storeMapper.convertStoreToStoreDTO(store);
     }
 }

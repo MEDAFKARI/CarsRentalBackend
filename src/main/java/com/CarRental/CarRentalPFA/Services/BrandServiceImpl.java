@@ -4,6 +4,8 @@ import com.CarRental.CarRentalPFA.DAO.Repositories.BrandRepository;
 import com.CarRental.CarRentalPFA.DTO.BrandDTO;
 import com.CarRental.CarRentalPFA.Mappers.BrandMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +21,15 @@ public class BrandServiceImpl implements BrandService{
     BrandMapper brandMapper;
 
     @Override
-    public List<BrandDTO> getAllBrands() {
+    public Page<BrandDTO> getAllBrands(String kw, Integer size, Integer page) {
 
-        return brandRepository.findAll().stream()
-                .map(brand -> brandMapper.convertToDTO(brand))
-                .collect(Collectors.toList());
+        return brandRepository.findByBrandNameContaining(kw, PageRequest.of(page, size))
+                .map(brand -> brandMapper.convertToDTO(brand));
+    }
+
+    @Override
+    public BrandDTO getBrand(Long brandId) {
+        return brandMapper.convertToDTO(brandRepository.findById(brandId).get());
     }
 
     @Override
@@ -34,15 +40,15 @@ public class BrandServiceImpl implements BrandService{
     }
 
     @Override
-    public CarBrand updateBrand(CarBrand brand) {
-
-        return brandRepository.save(brand);
-    }
+    public BrandDTO updateBrand(BrandDTO brand) {
+        BrandDTO brandDTO = brandMapper
+                .convertToDTO(brandRepository.save(brandMapper.convertToBrand(brand)));
+        return brandDTO;    }
 
     @Override
-    public CarBrand deleteBrand(Long brandId) {
+    public BrandDTO deleteBrand(Long brandId) {
         CarBrand brand = brandRepository.findById(brandId).get();
         brandRepository.delete(brand);
-        return brand;
+        return brandMapper.convertToDTO(brand);
     }
 }

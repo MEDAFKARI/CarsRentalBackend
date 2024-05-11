@@ -6,6 +6,8 @@ import com.CarRental.CarRentalPFA.DAO.Repositories.CityRepository;
 import com.CarRental.CarRentalPFA.DTO.CityDTO;
 import com.CarRental.CarRentalPFA.Mappers.CityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,11 +22,10 @@ public class CityServiceImpl implements CityService {
 
 
     @Override
-    public List<CityDTO> getAllCities() {
-        List<CityDTO> cities = cityRepository.findAll()
-                .stream()
-                .map(city -> cityMapper.convertCityToDTO(city))
-                .collect(Collectors.toList());
+    public Page<CityDTO> getAllCities(String kw, Integer size, Integer page) {
+        Page<CityDTO> cities = cityRepository
+                .findByCityNameContaining(kw, PageRequest.of(page,size))
+                .map(city -> cityMapper.convertCityToDTO(city));
         System.out.println(cities);
         return cities;
     }
@@ -39,14 +40,14 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public CityDTO updateCity(CityDTO city) {
-
-        return null;
+        City c = cityRepository.save(cityMapper.convertCityDTOToCity(city));
+        return cityMapper.convertCityToDTO(c);
     }
 
     @Override
     public CityDTO deleteCity(Long cityId) {
         City city = cityRepository.findById(cityId).get();
         cityRepository.delete(city);
-        return null;
+        return cityMapper.convertCityToDTO(city);
     }
 }

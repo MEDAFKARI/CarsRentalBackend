@@ -53,5 +53,8 @@ public class CarRentalPfaApplication implements CommandLineRunner {
 //		store1.setCars(List.of(car));
 //		storeRepository.save(store1);
 
+//		Car car = new Car(null,"SUV",200D,null, CarBody.SUV,4, Transmission.MANUAL, false,Fuel.DIESEL,null,null,null);
+//		carRepository.save(car);
+
 	}
 }

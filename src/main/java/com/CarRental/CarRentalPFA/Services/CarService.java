@@ -1,15 +1,24 @@
 package com.CarRental.CarRentalPFA.Services;
 
 import com.CarRental.CarRentalPFA.DAO.Entities.Car;
+import com.CarRental.CarRentalPFA.DAO.Enum.CarBody;
 import com.CarRental.CarRentalPFA.DTO.CarDTO;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface CarService {
-    List<CarDTO> getAllCars();
-    List<Car> getAllCarsByStore(Long storeId);
-    List<Car> getAllCarsByBrand(Long brandId);
+    CarDTO getCar(Long Id);
+
+    Page<CarDTO> getAllCarsByModel(String ModelName, Integer size, Integer page);
+
+    Page<CarDTO> getAllCarsByStore(Long storeId, Integer size, Integer page);
+
+    Page<CarDTO> getAllCarsByBody(CarBody carBody, Integer size, Integer page);
+
+    Page<CarDTO> getAllCarsByBrand(Long brandId, Integer size, Integer page);
+
     CarDTO addCar(CarDTO car);
-    Car updateCar(Car car);
-    Car deleteCar(Long carId);
+    CarDTO updateCar(CarDTO car);
+    CarDTO deleteCar(Long carId);
 }

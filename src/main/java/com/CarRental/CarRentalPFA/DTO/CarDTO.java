@@ -28,9 +28,10 @@ public class CarDTO {
     private Double price;
     private BrandDTO brand;
     private CarBody body;
+    private String carImage;
+    private Boolean availability;
     private Integer doors;
     private Transmission transmission;
     private Fuel fuel;
-    private Long storeId;
-
+    private StoreDTO store;
 }

@@ -8,6 +8,9 @@ import com.CarRental.CarRentalPFA.Mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class AdminService {
     @Autowired
@@ -24,6 +27,38 @@ public class AdminService {
         UserDTO userDTO= userMapper.convertToUserDTO(user);
         return userDTO;
     }
+
+    public List<UserDTO> getAllUsers(){
+        List<User> user = userRepository.findAll();
+        List<UserDTO> userDTOList = user
+                .stream()
+                .map(u->userMapper.convertToUserDTO(u))
+                .collect(Collectors.toList());
+        return userDTOList;
+    }
+
+
+    public List<UserDTO> getAllStoreOwner(){
+        List<User> user = userRepository.findAllByRole(Role.STORE_OWNER);
+        List<UserDTO> userDTOList = user
+                .stream()
+                .map(u->userMapper.convertToUserDTO(u))
+                .collect(Collectors.toList());
+        return userDTOList;
+    }
+
+    public List<UserDTO> getAllNormalUsers(){
+        List<User> user = userRepository.findAllByRole(Role.USER);
+        List<UserDTO> userDTOList = user
+                .stream()
+                .map(u->userMapper.convertToUserDTO(u))
+                .collect(Collectors.toList());
+        return userDTOList;
+    }
+
+
+
+
 
 
 

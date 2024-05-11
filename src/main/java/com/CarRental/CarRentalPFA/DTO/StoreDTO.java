@@ -4,6 +4,7 @@ import com.CarRental.CarRentalPFA.DAO.Entities.Car;
 import com.CarRental.CarRentalPFA.DAO.Entities.City;
 import com.CarRental.CarRentalPFA.DAO.Entities.User;
 import com.CarRental.CarRentalPFA.DAO.Entities.UserReview;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -23,6 +24,5 @@ public class StoreDTO {
     private Long Id;
     private String storeName;
     private CityDTO city;
-    private List<CarDTO> cars;
     private UserDTO owner;
 }

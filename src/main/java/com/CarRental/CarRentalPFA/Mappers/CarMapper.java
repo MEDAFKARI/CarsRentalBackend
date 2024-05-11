@@ -23,7 +23,6 @@ public class CarMapper {
 
     public Car convertToCar(CarDTO carDTO){
         Car car = modelMapper.map(carDTO, Car.class);
-        car.setStore(storeRepository.findById(carDTO.getStoreId()).get());
         return car;
     }
 

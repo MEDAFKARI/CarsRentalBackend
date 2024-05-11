@@ -19,15 +19,15 @@ public class Store {
     private Long Id;
     @Column(unique = true)
     private String storeName;
+    private String StoreNumber;
     @ManyToOne
     private City city;
-    @OneToMany(mappedBy = "store")
+    @OneToMany(mappedBy = "store", fetch = FetchType.EAGER)
     private List<Car> cars;
     @OneToMany(mappedBy = "store")
     private List<UserReview> review;
     @OneToOne
     private User owner;
-    @OneToMany(mappedBy = "store")
-    private List<LocationHistorique> historiques;
+
 
 }

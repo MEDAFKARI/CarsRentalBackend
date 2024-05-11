@@ -16,8 +16,15 @@ public class StoreController {
     StoreService storeService;
 
     @GetMapping("/get")
-    ResponseEntity<?> getAllStores(){
-        return new ResponseEntity<>(storeService.getAllStores(), HttpStatus.OK);
+    ResponseEntity<?> getAllStores(@RequestParam(value = "search", defaultValue = "") String kw,
+    @RequestParam(value = "size", defaultValue = "5") Integer size,
+    @RequestParam(value = "page", defaultValue = "0") Integer page){
+        return new ResponseEntity<>(storeService.getAllStores(kw, size, page), HttpStatus.OK);
+    }
+
+    @GetMapping("/get/{id}")
+    ResponseEntity<?> getStore(@PathVariable("id") Long storeId){
+        return new ResponseEntity<>(storeService.getStore(storeId), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STORE_OWNER')")
@@ -26,5 +33,16 @@ public class StoreController {
         return new ResponseEntity<>(storeService.addStore(storeDTO), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STORE_OWNER')")
+    @PostMapping("/update/{id}")
+    ResponseEntity<?> updateStore(@PathVariable("id") Long Id ,@RequestBody StoreDTO storeDTO){
+        storeDTO.setId(Id);
+        return new ResponseEntity<>(storeService.updateStore(storeDTO), HttpStatus.OK);
+    }
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STORE_OWNER')")
+    @PostMapping("/delete/{id}")
+    ResponseEntity<?> deleteStore(@PathVariable("id") Long Id ){
+        return new ResponseEntity<>(storeService.deleteStore(Id), HttpStatus.OK);
+    }
 }
