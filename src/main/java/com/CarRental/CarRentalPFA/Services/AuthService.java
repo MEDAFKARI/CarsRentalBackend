@@ -1,8 +1,11 @@
 package com.CarRental.CarRentalPFA.Services;
 
+import com.CarRental.CarRentalPFA.DAO.Entities.Store;
 import com.CarRental.CarRentalPFA.DAO.Entities.User;
 import com.CarRental.CarRentalPFA.DAO.Enum.Role;
+import com.CarRental.CarRentalPFA.DAO.Repositories.StoreRepository;
 import com.CarRental.CarRentalPFA.DAO.Repositories.UserRepository;
+import com.CarRental.CarRentalPFA.DTO.StoreDTO;
 import com.CarRental.CarRentalPFA.Requests.SigninRequest;
 import com.CarRental.CarRentalPFA.Requests.SignupRequest;
 import com.CarRental.CarRentalPFA.Responses.JwtResponse;
@@ -24,6 +27,7 @@ public class AuthService {
     private final JwtService jwtService;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final StoreRepository storeRepository;
 
     public JwtResponse login(SigninRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(
@@ -48,4 +52,26 @@ public class AuthService {
         userRepository.save(user1);
         return "Created";
     }
+
+    public User signupStoreOwner(SignupRequest req) {
+        String password = passwordEncoder.encode(req.getPassword());
+        System.out.println(password);
+
+        Store storeDTO = new Store(null, req.getUsername() + "'s Store", null, null, null, null, null, null);
+        Store store = storeRepository.save(storeDTO);
+        System.out.println(store);
+
+        User user1 = new User(req.getUsername(), req.getEmail(), password, Role.STORE_OWNER, null, null, null);
+        User u = userRepository.save(user1);
+
+        System.out.println(u);
+
+        store.setOwner(u);
+        u.setStore(store);
+        storeRepository.save(store);
+        userRepository.save(u);
+
+        return u;
+    }
+
 }

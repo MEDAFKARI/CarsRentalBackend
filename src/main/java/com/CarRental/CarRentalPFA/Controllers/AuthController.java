@@ -26,4 +26,12 @@ public class AuthController {
     ResponseEntity<?> signup(@RequestBody SignupRequest req){
         return new ResponseEntity<>(authService.signup(req), HttpStatus.OK);
     }
+
+    @PostMapping("/signup/storeOwner")
+    ResponseEntity<?> signupStoreOwner(@RequestBody SignupRequest req){
+        System.out.println(req);
+        return new ResponseEntity<>(authService.signupStoreOwner(req), HttpStatus.OK);
+    }
+
+
 }
