@@ -19,4 +19,8 @@ public interface StoreService {
     StoreDTO deleteStore(Long storeId);
 
     StoreDTO getStoreByUserId(String userId);
+
+    StoreDTO updateStoreLogo(Long id, MultipartFile storeLogo) throws IOException;
+
+    StoreDTO updateStoreInfos(Long id, String storeNumber, String storeName, Long cityId);
 }

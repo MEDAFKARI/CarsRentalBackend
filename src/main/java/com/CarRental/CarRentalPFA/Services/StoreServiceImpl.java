@@ -56,6 +56,8 @@ public class StoreServiceImpl implements StoreService{
         return storeMapper.convertStoreToStoreDTO(userRepository.findById(userId).get().getStore());
     }
 
+
+
     @Override
     public StoreDTO addStore(StoreDTO store) {
         System.out.println(store);
@@ -81,6 +83,28 @@ public class StoreServiceImpl implements StoreService{
         store1.setStoreName(storeName);
         store1.setCity(cityRepository.findById(cityId).get());
         store1.setConfigured(true);
+        StoreDTO storeDTO = storeMapper.convertStoreToStoreDTO(storeRepository.save(store1));
+        System.out.println("-----------------------------------------------------------");
+        System.out.println(storeDTO);
+        System.out.println("-----------------------------------------------------------");
+        return storeDTO;
+    }
+
+
+    @Override
+    public StoreDTO updateStoreLogo(Long id, MultipartFile storeLogo) throws IOException {
+        Store store1 = storeRepository.findById(id).get();
+        store1.setStoreLogo(uploadfile(storeLogo));
+        StoreDTO storeDTO = storeMapper.convertStoreToStoreDTO(storeRepository.save(store1));
+        return storeDTO;
+    }
+
+    @Override
+    public StoreDTO updateStoreInfos(Long id, String storeNumber, String storeName, Long cityId) {
+        Store store1 = storeRepository.findById(id).get();
+        store1.setStoreNumber(storeNumber);
+        store1.setStoreName(storeName);
+        store1.setCity(cityRepository.findById(cityId).get());
         StoreDTO storeDTO = storeMapper.convertStoreToStoreDTO(storeRepository.save(store1));
         System.out.println("-----------------------------------------------------------");
         System.out.println(storeDTO);

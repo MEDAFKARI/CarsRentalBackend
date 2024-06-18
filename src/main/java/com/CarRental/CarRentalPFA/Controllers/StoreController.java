@@ -44,7 +44,7 @@ public class StoreController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STORE_OWNER')")
     @PutMapping("/update/{id}")
-    ResponseEntity<?> updateStore(@PathVariable("id") Long Id ,
+    ResponseEntity<?> ConfigureStore(@PathVariable("id") Long Id ,
                                   @RequestParam("storeName") String storeName,
                                   @RequestParam("storeNumber") String storeNumber,
                                   @RequestParam("attachment")MultipartFile storeLogo,
@@ -52,6 +52,22 @@ public class StoreController {
         return new ResponseEntity<>(storeService.updateStore(Id,storeNumber,storeLogo,storeName,cityId), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STORE_OWNER')")
+    @PutMapping("/updateStoreLogo/{id}")
+    ResponseEntity<?> updateStoreLogo(@PathVariable("id") Long Id ,
+                                  @RequestParam("attachment")MultipartFile storeLogo) throws IOException {
+        return new ResponseEntity<>(storeService.updateStoreLogo(Id,storeLogo), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STORE_OWNER')")
+    @PutMapping("/updateStoreInfos/{id}")
+    ResponseEntity<?> updateStoreInfos(@PathVariable("id") Long Id ,
+                                  @RequestParam("storeName") String storeName,
+                                  @RequestParam("storeNumber") String storeNumber,
+                                  @RequestParam("city") Long cityId) throws IOException {
+        return new ResponseEntity<>(storeService.updateStoreInfos(Id,storeNumber,storeName,cityId), HttpStatus.OK);
+    }
+                
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STORE_OWNER')")
     @DeleteMapping("/delete/{id}")
     ResponseEntity<?> deleteStore(@PathVariable("id") Long Id ){
