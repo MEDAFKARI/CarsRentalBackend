@@ -1,16 +1,21 @@
 package com.CarRental.CarRentalPFA.Services;
 
 import com.CarRental.CarRentalPFA.DAO.Entities.Store;
+import com.CarRental.CarRentalPFA.DAO.Repositories.CityRepository;
 import com.CarRental.CarRentalPFA.DAO.Repositories.StoreRepository;
+import com.CarRental.CarRentalPFA.DAO.Repositories.UserRepository;
 import com.CarRental.CarRentalPFA.DTO.StoreDTO;
 import com.CarRental.CarRentalPFA.Mappers.StoreMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class StoreServiceImpl implements StoreService{
@@ -20,6 +25,12 @@ public class StoreServiceImpl implements StoreService{
 
     @Autowired
     StoreMapper storeMapper;
+
+    @Autowired
+    CityRepository cityRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
 
     @Override
@@ -41,6 +52,11 @@ public class StoreServiceImpl implements StoreService{
     }
 
     @Override
+    public StoreDTO getStoreByUserId(String userId) {
+        return storeMapper.convertStoreToStoreDTO(userRepository.findById(userId).get().getStore());
+    }
+
+    @Override
     public StoreDTO addStore(StoreDTO store) {
         System.out.println(store);
         StoreDTO storeDTO = storeMapper
@@ -50,10 +66,25 @@ public class StoreServiceImpl implements StoreService{
         return storeDTO;
     }
 
+    public String uploadfile(MultipartFile file) throws IOException {
+        String filePATH = Host.LOCAL + file.getOriginalFilename(); // saved path locally
+        String fileUrl = Host.HOSTNAME + file.getOriginalFilename();
+        Files.write(Paths.get(filePATH),file.getBytes());
+        return fileUrl;
+    }
+
     @Override
-    public StoreDTO updateStore(StoreDTO store) {
-        Store store1 = storeRepository.save(storeMapper.convertToStore(store));
-        StoreDTO storeDTO = storeMapper.convertStoreToStoreDTO(store1);
+    public StoreDTO updateStore(Long Id, String storeNumber, MultipartFile storeLogo, String storeName, Long cityId) throws IOException {
+        Store store1 = storeRepository.findById(Id).get();
+        store1.setStoreNumber(storeNumber);
+        store1.setStoreLogo(uploadfile(storeLogo));
+        store1.setStoreName(storeName);
+        store1.setCity(cityRepository.findById(cityId).get());
+        store1.setConfigured(true);
+        StoreDTO storeDTO = storeMapper.convertStoreToStoreDTO(storeRepository.save(store1));
+        System.out.println("-----------------------------------------------------------");
+        System.out.println(storeDTO);
+        System.out.println("-----------------------------------------------------------");
         return storeDTO;
     }
 
@@ -63,4 +94,6 @@ public class StoreServiceImpl implements StoreService{
         storeRepository.delete(store);
         return storeMapper.convertStoreToStoreDTO(store);
     }
+
+
 }

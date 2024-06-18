@@ -45,19 +45,18 @@ public class AuthService {
         }
     }
 
-    public String signup(SignupRequest req) {
+    public User signup(SignupRequest req) {
         String password = passwordEncoder.encode(req.getPassword());
         System.out.println(password);
         User user1 = new User(req.getUsername(),req.getEmail(), password, Role.USER,null,null,null);
-        userRepository.save(user1);
-        return "Created";
+        return userRepository.save(user1);
     }
 
     public User signupStoreOwner(SignupRequest req) {
         String password = passwordEncoder.encode(req.getPassword());
         System.out.println(password);
 
-        Store storeDTO = new Store(null, req.getUsername() + "'s Store", null, null, null, null, null, null);
+        Store storeDTO = new Store(null, req.getUsername() + "'s Store", null, null, false,null, null, null, null);
         Store store = storeRepository.save(storeDTO);
         System.out.println(store);
 

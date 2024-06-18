@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/stores")
@@ -33,21 +36,24 @@ public class StoreController {
         return new ResponseEntity<>(storeService.getStore(storeId), HttpStatus.OK);
     }
 
+    @GetMapping("/getByUser/{id}")
+    ResponseEntity<?> getStoreByUser(@PathVariable("id") String userId){
+        return new ResponseEntity<>(storeService.getStoreByUserId(userId), HttpStatus.OK);
+    }
+
+
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STORE_OWNER')")
-    @PostMapping("/add")
-    ResponseEntity<?> addStore(@RequestBody StoreDTO storeDTO){
-        return new ResponseEntity<>(storeService.addStore(storeDTO), HttpStatus.OK);
+    @PutMapping("/update/{id}")
+    ResponseEntity<?> updateStore(@PathVariable("id") Long Id ,
+                                  @RequestParam("storeName") String storeName,
+                                  @RequestParam("storeNumber") String storeNumber,
+                                  @RequestParam("attachment")MultipartFile storeLogo,
+                                  @RequestParam("city") Long cityId) throws IOException {
+        return new ResponseEntity<>(storeService.updateStore(Id,storeNumber,storeLogo,storeName,cityId), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STORE_OWNER')")
-    @PostMapping("/update/{id}")
-    ResponseEntity<?> updateStore(@PathVariable("id") Long Id ,@RequestBody StoreDTO storeDTO){
-        storeDTO.setId(Id);
-        return new ResponseEntity<>(storeService.updateStore(storeDTO), HttpStatus.OK);
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('STORE_OWNER')")
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     ResponseEntity<?> deleteStore(@PathVariable("id") Long Id ){
         return new ResponseEntity<>(storeService.deleteStore(Id), HttpStatus.OK);
     }

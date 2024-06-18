@@ -21,6 +21,7 @@ public class Store {
     private String storeName;
     private String StoreNumber;
     private String storeLogo;
+    private boolean isConfigured;
     @ManyToOne
     private City city;
     @OneToMany(mappedBy = "store", fetch = FetchType.EAGER)

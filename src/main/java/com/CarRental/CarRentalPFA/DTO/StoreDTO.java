@@ -9,11 +9,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import javax.sound.sampled.ReverbType;
 import java.util.List;
 
 @Data
@@ -24,6 +22,9 @@ public class StoreDTO {
     private Long Id;
     private String storeName;
     private String storeLogo;
+    private String storeNumber;
     private CityDTO city;
     private UserDTO owner;
+    private ReviewDTO reviews;
+    private boolean isConfigured;
 }

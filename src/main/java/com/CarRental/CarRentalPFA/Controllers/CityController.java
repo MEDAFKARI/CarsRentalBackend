@@ -21,7 +21,7 @@ public class CityController {
 
     @GetMapping("/get")
     ResponseEntity<?> getAllCities(@RequestParam(value = "search", defaultValue = "") String kw,
-                                   @RequestParam(value = "size", defaultValue = "5") Integer size,
+                                   @RequestParam(value = "size", defaultValue = "10") Integer size,
                                    @RequestParam(value = "page", defaultValue = "0") Integer page){
         return new ResponseEntity<>(cityService.getAllCities(kw,size,page), HttpStatus.OK);
     }

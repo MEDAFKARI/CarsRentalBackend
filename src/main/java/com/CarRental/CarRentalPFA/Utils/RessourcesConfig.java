@@ -20,7 +20,7 @@ public class RessourcesConfig implements WebMvcConfigurer {
         } else {
             registry.addResourceHandler("/content/**")
                     //past  your absolute path dyal machine dylk
-                    .addResourceLocations("file:///C:/Users/Med/Desktop/RentalCarsPFA/CarRentalPFA/src/main/resources/static/public/");
+                    .addResourceLocations("file:///C:/Users/Med/Desktop/CarsRentalPFA/CarsRentalBackend/src/main/resources/static/public/");
         }
     }
 
