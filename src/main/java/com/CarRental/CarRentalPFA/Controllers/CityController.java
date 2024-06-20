@@ -30,18 +30,18 @@ public class CityController {
     ResponseEntity<?> getCity(@PathVariable("id") Long cityId){
         return new ResponseEntity<>(cityService.getCity(cityId), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
     ResponseEntity<?> addCity(@RequestBody CityDTO city){
         return new ResponseEntity<>(cityService.addCity(city), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/update/{id}")
     ResponseEntity<?> updateCity(@PathVariable("id") Long Id, @RequestBody CityDTO city){
         city.setId(Id);
         return new ResponseEntity<>(cityService.updateCity(city), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping ("/delete/{id}")
     ResponseEntity<?> deleteCity(@PathVariable("id") Long Id){
         return new ResponseEntity<>(cityService.deleteCity(Id), HttpStatus.OK);

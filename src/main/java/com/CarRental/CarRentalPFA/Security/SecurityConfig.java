@@ -53,7 +53,15 @@ public class SecurityConfig {
                                         mvcMatcherBuilder.pattern("/api/v1/auth/signup"),
                                         mvcMatcherBuilder.pattern("/api/v1/auth/signin"),
                                         mvcMatcherBuilder.pattern("/content/**"),
-                                        mvcMatcherBuilder.pattern("/**")
+                                        mvcMatcherBuilder.pattern("/api/v1/cars/get**"),
+                                        mvcMatcherBuilder.pattern("/api/v1/cars/get/**"),
+                                        mvcMatcherBuilder.pattern("/api/v1/cars/getByStore/{id}/**"),
+                                        mvcMatcherBuilder.pattern("/api/v1/brands/get**"),
+                                        mvcMatcherBuilder.pattern("/api/v1/cities/get**"),
+                                        mvcMatcherBuilder.pattern("/api/v1/stores/get**"),
+                                        mvcMatcherBuilder.pattern("/api/v1/stores/get/**"),
+                                        mvcMatcherBuilder.pattern("/api/v1/stores/getByCity/**"),
+                                        mvcMatcherBuilder.pattern("/api/v1/stores/getByUser/**")
                                 ).permitAll()
                                 .anyRequest()
                                 .authenticated());

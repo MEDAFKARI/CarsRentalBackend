@@ -20,7 +20,7 @@ public class StoreController {
 
     @GetMapping("/get")
     ResponseEntity<?> getAllStores(@RequestParam(value = "search", defaultValue = "") String kw,
-    @RequestParam(value = "size", defaultValue = "5") Integer size,
+    @RequestParam(value = "size", defaultValue = "9") Integer size,
     @RequestParam(value = "page", defaultValue = "0") Integer page){
         return new ResponseEntity<>(storeService.getAllStores(kw, size, page), HttpStatus.OK);
     }

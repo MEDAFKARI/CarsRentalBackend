@@ -25,7 +25,7 @@ public class CarController {
 
     @GetMapping("/get")
     ResponseEntity<?> getAllCars(@RequestParam(value = "search", defaultValue = "") String kw,
-                                 @RequestParam(value = "size", defaultValue = "5") Integer size,
+                                 @RequestParam(value = "size", defaultValue = "9") Integer size,
                                  @RequestParam(value = "page", defaultValue = "0") Integer page){
 
         return new ResponseEntity<>(carService.getAllCarsByModel(kw, size, page), HttpStatus.OK);
@@ -39,14 +39,14 @@ public class CarController {
 
     @GetMapping("/getByStore/{id}")
     ResponseEntity<?> getCarsByStore(@PathVariable("id") Long storeId,
-                                     @RequestParam(value = "size", defaultValue = "5") Integer size,
+                                     @RequestParam(value = "size", defaultValue = "9") Integer size,
                                      @RequestParam(value = "page", defaultValue = "0") Integer page){
         return new ResponseEntity<>(carService.getAllCarsByStore(storeId,size,page), HttpStatus.OK);
     }
 
     @GetMapping("/getByBrand")
     ResponseEntity<?> getCarsByBrand(@RequestParam("brand") Long brandId,
-                                     @RequestParam(value = "size", defaultValue = "5") Integer size,
+                                     @RequestParam(value = "size", defaultValue = "9") Integer size,
                                      @RequestParam(value = "page", defaultValue = "0") Integer page){
         return new ResponseEntity<>(carService.getAllCarsByBrand(brandId,size,page), HttpStatus.OK);
     }
@@ -54,7 +54,7 @@ public class CarController {
 
     @GetMapping("/getByBody")
     ResponseEntity<?> getAllCarsByBody(@RequestParam(value = "body", defaultValue = "") CarBody body,
-                                 @RequestParam(value = "size", defaultValue = "7") Integer size,
+                                 @RequestParam(value = "size", defaultValue = "9") Integer size,
                                  @RequestParam(value = "page", defaultValue = "0") Integer page){
 
         return new ResponseEntity<>(carService.getAllCarsByBody(body, size, page), HttpStatus.OK);
@@ -62,7 +62,7 @@ public class CarController {
 
     @GetMapping("/getByUser")
     ResponseEntity<?> getAllCarsByUser(@RequestParam(value = "id") String Username,
-                                       @RequestParam(value = "size", defaultValue = "7") Integer size,
+                                       @RequestParam(value = "size", defaultValue = "9") Integer size,
                                        @RequestParam(value = "page", defaultValue = "0") Integer page){
 
         return new ResponseEntity<>(carService.getAllCarsByUser(Username, size, page), HttpStatus.OK);

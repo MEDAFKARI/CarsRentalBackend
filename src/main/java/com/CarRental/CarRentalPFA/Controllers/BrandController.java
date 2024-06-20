@@ -17,7 +17,7 @@ public class BrandController {
 
     @GetMapping("/get")
     ResponseEntity<?> getAllBrands(@RequestParam(value = "search", defaultValue = "") String kw,
-                                   @RequestParam(value = "size", defaultValue = "5") Integer size,
+                                   @RequestParam(value = "size", defaultValue = "10") Integer size,
                                    @RequestParam(value = "page", defaultValue = "0") Integer page){
         return new ResponseEntity<>(brandService.getAllBrands(kw, size,page), HttpStatus.OK);
     }
@@ -28,20 +28,18 @@ public class BrandController {
     }
 
 
-//    @PreAuthorize("hasAuthority('ADMIN')")
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
     ResponseEntity<?> addBrand(@RequestBody BrandDTO brandDTO){
         return new ResponseEntity<>(brandService.addBrand(brandDTO), HttpStatus.OK);
     }
-//    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/update/{id}")
     ResponseEntity<?> updateBrand(@PathVariable("id") Long brandId,  @RequestBody BrandDTO brandDTO){
         brandDTO.setId(brandId);
         return new ResponseEntity<>(brandService.updateBrand(brandDTO), HttpStatus.OK);
     }
-//    @PreAuthorize("hasAuthority('ADMIN')")
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete/{id}")
     ResponseEntity<?> deleteBrand(@PathVariable("id") Long brandId){
         return new ResponseEntity<>(brandService.deleteBrand(brandId), HttpStatus.OK);

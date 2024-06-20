@@ -1,7 +1,9 @@
 package com.CarRental.CarRentalPFA.Services;
 
+import com.CarRental.CarRentalPFA.DAO.Entities.Store;
 import com.CarRental.CarRentalPFA.DAO.Entities.User;
 import com.CarRental.CarRentalPFA.DAO.Enum.Role;
+import com.CarRental.CarRentalPFA.DAO.Repositories.StoreRepository;
 import com.CarRental.CarRentalPFA.DAO.Repositories.UserRepository;
 import com.CarRental.CarRentalPFA.DTO.UserDTO;
 import com.CarRental.CarRentalPFA.Mappers.UserMapper;
@@ -19,12 +21,27 @@ public class AdminService {
     @Autowired
     UserMapper userMapper;
 
+    @Autowired
+    StoreRepository storeRepository;
+
+
+
 
     public UserDTO UpdateRoleTo_StoreOwner(String Id){
         User user = userRepository.findById(Id).orElseThrow();
         user.setRole(Role.STORE_OWNER);
+
+        Store storeDTO = new Store(null, user.getUsername() + "'s Store", null, null, false,null, null, null, null);
+        Store store = storeRepository.save(storeDTO);
+        System.out.println(store);
+
+        store.setOwner(user);
+        user.setStore(store);
+        storeRepository.save(store);
+
         userRepository.save(user);
         UserDTO userDTO= userMapper.convertToUserDTO(user);
+        System.out.println(userDTO);
         return userDTO;
     }
 
