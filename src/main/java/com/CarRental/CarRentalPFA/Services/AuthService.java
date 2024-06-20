@@ -48,7 +48,7 @@ public class AuthService {
     public User signup(SignupRequest req) {
         String password = passwordEncoder.encode(req.getPassword());
         System.out.println(password);
-        User user1 = new User(req.getUsername(),req.getEmail(), password, Role.USER,null,null,null);
+        User user1 = new User(req.getUsername(),req.getEmail(), password, null,Role.USER,null,null,null);
         return userRepository.save(user1);
     }
 
@@ -60,7 +60,7 @@ public class AuthService {
         Store store = storeRepository.save(storeDTO);
         System.out.println(store);
 
-        User user1 = new User(req.getUsername(), req.getEmail(), password, Role.STORE_OWNER, null, null, null);
+        User user1 = new User(req.getUsername(), req.getEmail(), password, null,Role.STORE_OWNER, null, null, null);
         User u = userRepository.save(user1);
 
         System.out.println(u);

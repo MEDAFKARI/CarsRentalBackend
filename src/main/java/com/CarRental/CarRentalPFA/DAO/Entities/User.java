@@ -18,11 +18,10 @@ import java.util.List;
 @Table(name = "users")
 public class User {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long Id;
     private String username;
     private String email;
     private String password;
+    private String ProfilePicture;
     @Enumerated(EnumType.STRING)
     private Role role;
     @OneToOne(mappedBy = "owner")
